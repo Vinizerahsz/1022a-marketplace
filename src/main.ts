@@ -1,5 +1,4 @@
 import express from 'express'
-
 import cors from 'cors'
 import BancoMysql from './db/banco-mysql'
 
