@@ -8,7 +8,7 @@ class BancoMysql{
         this.connection = await mysql.createConnection({
             host: process.env.dbhost ? process.env.dbhost : "banco1022a-estudante-43c0.e.aivencloud.com",
             user: process.env.dbuser ? process.env.dbuser : "avnadmin",
-            password: process.env.dbpassword ? process.env.dbpassword : "AVNS_JyLEd9TJwW0wEhjPsVG",
+            password: process.env.dbpassword ? process.env.dbpassword : "",
             database: process.env.dbname ? process.env.dbname : "defaultdb",
             port: process.env.dbport ? parseInt(process.env.dbport) : 12512
         })
