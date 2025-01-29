@@ -6,11 +6,11 @@ class BancoMysql{
     //Métodos
     async criarConexao(){
         this.connection = await mysql.createConnection({
-            host: process.env.dbhost ? process.env.dbhost : "localhost",
-            user: process.env.dbuser ? process.env.dbuser : "root",
-            password: process.env.dbpassword ? process.env.dbpassword : "",
-            database: process.env.dbname ? process.env.dbname : "banco1022a",
-            port: process.env.dbport ? parseInt(process.env.dbport) : 3306
+            host: process.env.dbhost ? process.env.dbhost : "banco1022a-estudante-43c0.e.aivencloud.com",
+            user: process.env.dbuser ? process.env.dbuser : "avnadmin",
+            password: process.env.dbpassword ? process.env.dbpassword : "AVNS_JyLEd9TJwW0wEhjPsVG",
+            database: process.env.dbname ? process.env.dbname : "defaultdb",
+            port: process.env.dbport ? parseInt(process.env.dbport) : 12512
         })
     }
     async consultar(query:string,params?:any[]){
