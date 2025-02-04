@@ -1,21 +1,20 @@
 import mysql , { Connection, RowDataPacket } from 'mysql2/promise'
+
 class BancoMysql{
-    //Atributos de uma classe
     connection:Connection|null = null
     
-    //Métodos
     async criarConexao(){
         this.connection = await mysql.createConnection({
-            host: "banco1022a-estudante-43c0.e.aivencloud.com",
+            host: "banco1022a-estudante-612d.h.aivencloud.com",
             user: "avnadmin",
-            password: "AVNS_JyLEd9TJwW0wEhjPsVG",
+            password: "AVNS_xtMVt32IN3kVfgieyzY",
             database: "defaultdb",
-            port: 12512
+            port: 20310
         })
     }
     async consultar(query:string,params?:any[]){
         if(!this.connection) throw new Error("Erro de conexão com o banco de dados.")
-        const [result, fields] = await this.connection.query(query,params)
+        const [result] = await this.connection.query(query,params)
         return result
     }
     async finalizarConexao(){
@@ -23,28 +22,19 @@ class BancoMysql{
         await this.connection.end()
     }
     async listar(){
-        if(!this.connection) throw new Error("Erro de conexão com o banco de dados.")
-        const [result, fields] = await this.connection.query("SELECT * FROM produtos")
-        return result
+        return await this.consultar("SELECT * FROM produtos")
     }
-    async inserir(produto:{id:number,nome:string,descricao:string,preco:string,imagem:string}){
-        if(!this.connection) throw new Error("Erro de conexão com o banco de dados.")
-        const [result, fields] = await this.connection.query("INSERT INTO produtos VALUES (?,?,?,?,?)",[produto.id,produto.nome,produto.descricao,produto.preco,produto.imagem])
-        return result
+    async inserir(produto:{id:number,nome:string,descricao:string,preco:string,imagem:string,modelo:string,marca:string}){
+        return await this.consultar("INSERT INTO produtos VALUES (?,?,?,?,?,?)",[produto.id,produto.nome,produto.descricao,produto.preco,produto.imagem,produto.modelo,produto.marca])
     }
     async excluir(id:string){
-        if(!this.connection) throw new Error("Erro de conexão com o banco de dados.")
-        const [result, fields] = await this.connection.query("DELETE FROM produtos WHERE id = ?",[id])
-        return result
+        return await this.consultar("DELETE FROM produtos WHERE id = ?",[id])
     }
-    async alterar(id:string,produto:{id?:string,nome:string,descricao:string,preco:string,imagem:string}){
-        if(!this.connection) throw new Error("Erro de conexão com o banco de dados.")
-        const [result, fields] = await this.connection.query("UPDATE produtos SET nome=?,descricao=?,preco=?,imagem=? WHERE id=?",[produto.nome,produto.descricao,produto.preco,produto.imagem,id])
-        return result
+    async alterar(id:string,produto:{nome:string,descricao:string,preco:string,imagem:string,modelo:string,marca:string}){
+        return await this.consultar("UPDATE produtos SET nome=?, descricao=?, preco=?, imagem=?, modelo=?, marca=? WHERE id=?", [produto.nome, produto.descricao, produto.preco, produto.imagem, produto.modelo, produto.marca, id])
     }
     async listarPorId(id:string){
-        if(!this.connection) throw new Error("Erro de conexão com o banco de dados.")
-        const [result, fields] = await this.connection.query("SELECT * FROM produtos WHERE id = ?",[id]) as RowDataPacket[]
+        const result = await this.consultar("SELECT * FROM produtos WHERE id = ?",[id]) as RowDataPacket[]
         return result[0]
     }
 }
