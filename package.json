@@ -1,7 +1,6 @@
 {
   "name": "1022a-marketplace",
   "version": "1.0.0",
-  "description": "",
   "main": "main.js",
   "scripts": {
     "dev": "tsx watch src/main.ts",
@@ -23,5 +22,6 @@
     "express": "^4.21.0",
     "mongodb": "^6.12.0",
     "mysql2": "^3.11.3"
-  }
+  },
+  "description": ""
 }
